@@ -1,4 +1,4 @@
-# wxd-exam
+用于练习业余无线电（HAM）操作证考试题库的简易Vue网页
 
 ## Project setup
 ```
@@ -15,10 +15,3 @@ yarn serve
 yarn build
 ```
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
