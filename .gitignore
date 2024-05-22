@@ -21,3 +21,7 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Ignore custom question banks and images
+/public/question-bank.json
+/public/image/
