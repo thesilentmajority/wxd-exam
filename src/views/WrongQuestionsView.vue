@@ -7,7 +7,7 @@
             <h1 class="text-center">错题</h1>
           </v-col>
         </v-row>
-        <v-row>
+        <transition-group name="fade" tag="v-row">
           <v-col
             v-for="question in wrongQuestions"
             :key="question.id"
@@ -19,7 +19,7 @@
               <QuestionComponent :question="question" @answered="handleAnswered" />
             </v-card>
           </v-col>
-        </v-row>
+        </transition-group>
         <v-row class="mt-4">
           <v-col>
             <v-btn color="primary" @click="goHome" block>
@@ -45,7 +45,13 @@ export default {
   methods: {
     ...mapMutations(['markAnswered']),
     handleAnswered({ questionId, isCorrect }) {
-      this.markAnswered({ questionId, isCorrect });
+      if (isCorrect) {
+        setTimeout(() => {
+          this.$store.commit('markAnswered', { questionId, isCorrect });
+        }, 500); // 延迟500ms以展示渐变动画
+      } else {
+        this.markAnswered({ questionId, isCorrect });
+      }
     },
     goHome() {
       this.$router.push('/');
@@ -57,5 +63,11 @@ export default {
 <style scoped>
 .text-center {
   text-align: center;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in versions below Vue 2.1.8 */ {
+  opacity: 0;
 }
 </style>

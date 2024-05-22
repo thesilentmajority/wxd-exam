@@ -7,6 +7,17 @@
             <h1 class="text-center">题目</h1>
           </v-col>
         </v-row>
+        <v-row class="mt-4">
+          <v-col>
+            <v-alert
+              v-if="currentQuestionAnswered"
+              :type="currentQuestionResult ? 'success' : 'error'"
+              class="mt-4"
+            >
+              上次回答该题目{{ currentQuestionResult ? '做对了' : '做错了' }}
+            </v-alert>
+          </v-col>
+        </v-row>
         <v-row>
           <v-col>
             <QuestionComponent
@@ -38,7 +49,7 @@
               class="mt-0"
               hide-details
               dense
-              style="width: 60px; display: inline-block;"
+              style="width: 80px; display: inline-block;"
             ></v-text-field>
             题 / 共 {{ totalQuestions }} 题
           </v-col>
@@ -50,18 +61,6 @@
             >
               下一题
             </v-btn>
-          </v-col>
-        </v-row>
-        <v-row class="mt-4">
-          <v-col>
-            <v-alert
-              v-if="currentQuestionAnswered"
-              :type="currentQuestionResult ? 'success' : 'error'"
-              class="mt-4"
-              border="top"
-            >
-              已经回答，结果是：{{ currentQuestionResult ? '正确' : '错误' }}
-            </v-alert>
           </v-col>
         </v-row>
         <v-row class="mt-4">

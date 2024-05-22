@@ -16,7 +16,10 @@
             lg="4"
           >
             <v-card class="mx-auto mb-4" max-width="400">
-              <v-card-title>{{ bank.name }} ({{ bank.questions.length }} 题)</v-card-title>
+              <v-card-title>
+                <div class="wrap-text">{{ bank.name }}</div>
+                <div>共 {{ bank.questions.length }} 题</div>
+              </v-card-title>
               <v-card-actions>
                 <v-btn color="primary" @click="selectBank(bank, 'sequential')">
                   顺序模式
@@ -38,22 +41,30 @@
         <v-row class="mt-4">
           <v-col>
             <v-btn color="info" @click="navigateToWrongQuestions" block>
-              查看错题
+              查看错题（{{ wrongQuestionsCount }}）
             </v-btn>
           </v-col>
         </v-row>
       </v-container>
     </v-main>
+    <PageFooter />
   </v-app>
 </template>
 
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex';
+import PageFooter from '../components/PageFooter.vue';
 
 export default {
   name: 'HomeView',
+  components: {
+    PageFooter
+  },
   computed: {
-    ...mapState(['questionBank'])
+    ...mapState(['questionBank', 'wrongQuestions']),
+    wrongQuestionsCount() {
+      return this.wrongQuestions.length;
+    }
   },
   methods: {
     ...mapActions(['loadQuestionBank']),
@@ -81,5 +92,9 @@ export default {
 <style scoped>
 .text-center {
   text-align: center;
+}
+.wrap-text {
+  white-space: normal;
+  word-break: break-word;
 }
 </style>
